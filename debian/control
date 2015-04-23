@@ -1,0 +1,20 @@
+Source: apt-transport-isoimage
+Section: admin
+Priority: extra
+Maintainer: Ryan Kuester <rkuester@insymbols.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.3
+
+Package: apt-transport-isoimage
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: isoarchive transport for APT
+ This package enables the use of
+     "deb isoarchive:scan-removable master main"
+ lines in /etc/apt/sources.list to give the package manager
+ access to source repositories of the isoimage type. This is a
+ regular APT archive, contained in a directory named 'archive'
+ and packed in an iso9660 image. The 'scan-removable' path is the
+ only path currently implemented, and means we search all
+ partitions on removable storage for a qualifying iso9660 image
+ file.
