@@ -1,5 +1,6 @@
 #include "isoarchive_method.h"
 #include <apt-pkg/hashes.h>
+#include <apt-pkg/fileutl.h>
 
 using namespace std;
 
@@ -24,7 +25,7 @@ bool isoarchive_method::Fetch(FetchItem *item)
 		res.Size = stat.st_size;
 		Hashes hash;
 		FileFd fd(res.Filename, FileFd::ReadOnly);
-		hash.AddFD(fd);
+		hash.AddFD(fd.Fd(), fd.Size());
 		res.TakeHashes(hash);
 		URIDone(res);
 		return true;
