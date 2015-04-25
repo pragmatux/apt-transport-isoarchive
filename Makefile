@@ -1,4 +1,4 @@
-CXX = g++
+CXX ?= g++
 CXXFLAGS = -std=c++0x -Wno-psabi
 LDFLAGS = -lapt-pkg -ludev -lblkid
 
