@@ -162,6 +162,7 @@ mount::mount(const string &devpath)
 		case 0: /* child */
 			execl("/bin/mount",
 				"mount", "-r",
+				"-o", "loop", /* indeded needed on squeeze */
 				devpath.c_str(),
 				_path.c_str(),
 				(char*)0);
