@@ -32,4 +32,4 @@ clean:
 
 .PHONY: install
 install: isoarchive
-	install -D $^ $(DESTDIR)/usr/lib/apt/methods
+	install -D $^ $(DESTDIR)/usr/lib/apt/methods/$^
