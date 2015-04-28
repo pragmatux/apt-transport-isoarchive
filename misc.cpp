@@ -149,7 +149,7 @@ mount::mount(const string &devpath)
 	}
 
 	if (_path.empty()) {
-		/* Call mount(2) to mount the partition. */
+		/* Call mount(8) to mount the partition. */
 
 		_tempdir.reset(new tempdir());
 		_path = _tempdir->path;
@@ -184,8 +184,29 @@ mount::mount(const string &devpath)
 mount::~mount()
 {
 	if (_tempdir) {
-		int rc = umount(_path.c_str());
-		if (rc == -1)
-			throw errno_error("unmounting");
+		/* Call umount(8) to unmount the partition. */
+
+		pid_t child = fork();
+		switch (child) {
+		case -1:
+			throw errno_error("forking");
+
+		case 0: /* child */
+			execl("/bin/umount",
+				"umount",
+				_path.c_str(),
+				(char*)0);
+			throw errno_error("exec'ing umount");
+
+		default: /* parent */
+			int rc, status;
+			rc = waitpid(child, &status, 0);
+			if (rc == -1)
+				throw errno_error("waitpid()");
+
+			if (WIFEXITED(status) && WEXITSTATUS(status) != 0) {
+				throw failure();
+			}
+		}
 	}
 }
