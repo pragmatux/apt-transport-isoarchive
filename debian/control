@@ -1,11 +1,11 @@
-Source: apt-transport-isoimage
+Source: apt-transport-isoarchive
 Section: admin
 Priority: extra
 Maintainer: Ryan Kuester <rkuester@insymbols.com>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.1
 
-Package: apt-transport-isoimage
+Package: apt-transport-isoarchive
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: isoarchive transport for APT
